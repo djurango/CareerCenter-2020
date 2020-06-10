@@ -14,7 +14,7 @@ class JobList extends Component {
     apiJobs = [];
 
     fetchJobs() {
-        fetch(`https://ohws.prospective.ch/public/v1/medium/1001946/jobs?lang=de&limit=200&offset=0`)
+        fetch(`https://ohws.prospective.ch/public/v1/medium/1000470/jobs?lang=de&limit=200&offset=0`)
             .then(response => response.json())
             .then(data =>{
                     this.apiJobs = data.jobs;
@@ -59,9 +59,13 @@ class JobList extends Component {
                                         <Paper className={"element"} >
                                             <h2>{job.title}</h2>
                                             <br/>
-                                            <div><b>Arbeitsort: </b>{job.attributes[10]}</div>
-                                            <br/>
-                                            <div><b>Publikationsdatum: </b>{job.last_modification_timestamp}</div>
+                                            <div><b>Abteilung: </b>{job.attributes[10]}</div>
+                                            <div><b>Erfahrung: </b>{job.attributes[20]}</div>
+                                            <div><b>Land: </b>{job.attributes[25]}</div>
+                                            <div><b>Ort: </b>{job.attributes[27]}</div>
+
+
+
 
 
                                         </Paper>
