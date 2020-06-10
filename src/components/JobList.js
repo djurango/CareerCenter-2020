@@ -54,15 +54,19 @@ class JobList extends Component {
                     {!isLoading ? (
                         jobs.map(job => {
                             return (
-                                <Grid item xs={6} key={job.id}>
+                                <Grid item xs={12} sm={12} key={job.id}>
                                     <a target="_blank" rel="noopener noreferrer" href={job.links.directlink}>
                                         <Paper className={"element"} >
-                                            <img src="https://pms.imgix.net/" alt=""/>
+                                            <img className={"companyLogo"} src={'https://pms.imgix.net/' + job.templateData.sza_company_logo.value } alt=""/>
                                             <h2>{job.title}</h2>
                                             <br/>
                                             <div><b>Abteilung: </b>{job.templateData.adr_abteilung.value}</div>
                                             <div><b>Stellenantritt: </b> {job.templateData.sza_starting_date.value}</div>
                                             <div><b>Arbeitsort: </b>{job.templateData.ad_text8.value}</div>
+                                            <br/>
+                                            <div><b>Publikationsdatum: </b>{job.lastModificationTimestamp}</div>
+
+
                                         </Paper>
                                     </a>
                                 </Grid>
@@ -70,7 +74,7 @@ class JobList extends Component {
                         })
                     ) : (
                         <div className={"loading"}>
-                            <img className={"loadingSpinner"} src="https://miro.medium.com/max/882/1*9EBHIOzhE1XfMYoKz1JcsQ.gif" alt=""/>
+                            <img className={"loadingSpinner"} src="https://i.pinimg.com/originals/3e/f0/e6/3ef0e69f3c889c1307330c36a501eb12.gif" alt=""/>
                         </div>
                     )}
                 </Grid>

@@ -17,6 +17,15 @@ main {
   margin: 0 auto;
 }
 
+.loadingSpinner {
+  max-width: 150px;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%)
+}
+
 h2 {
   margin: 0;
 }
@@ -34,6 +43,19 @@ a {
 .element:hover {
   background: rgba(128, 128, 128, 0.18);
   transition: .5s all;
+}
+
+.companyLogo {
+  max-width: 120px;
+  float: right;
+}
+
+.MuiPaper-rounded {
+  border: 1px solid gray;
+}
+
+.MuiPaper-elevation1 {
+  transition: .5s all !important;
 }
 
 .MuiFormControl-root {
