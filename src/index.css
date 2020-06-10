@@ -37,7 +37,6 @@ a {
 .element {
   padding: 40px;
   transition: .5s all;
-  min-height: 200px;
 }
 
 .element:hover {

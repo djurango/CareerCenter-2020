@@ -14,7 +14,7 @@ class JobList extends Component {
     apiJobs = [];
 
     fetchJobs() {
-        fetch(`http://ohws.prospective.ch/public/v1/careercenter/1000103/json/?limit=1000`)
+        fetch(`http://ohws.prospective.ch/public/v1/medium/1001946/jobs?lang=de&limit=200&offset=0`)
             .then(response => response.json())
             .then(data =>{
                     this.apiJobs = data.jobs;
@@ -57,14 +57,11 @@ class JobList extends Component {
                                 <Grid item xs={12} sm={12} key={job.id}>
                                     <a target="_blank" rel="noopener noreferrer" href={job.links.directlink}>
                                         <Paper className={"element"} >
-                                            <img className={"companyLogo"} src={'https://pms.imgix.net/' + job.templateData.sza_company_logo.value } alt=""/>
                                             <h2>{job.title}</h2>
                                             <br/>
-                                            <div><b>Abteilung: </b>{job.templateData.adr_abteilung.value}</div>
-                                            <div><b>Stellenantritt: </b> {job.templateData.sza_starting_date.value}</div>
-                                            <div><b>Arbeitsort: </b>{job.templateData.ad_text8.value}</div>
+                                            <div><b>Arbeitsort: </b>{job.attributes[10]}</div>
                                             <br/>
-                                            <div><b>Publikationsdatum: </b>{job.lastModificationTimestamp}</div>
+                                            <div><b>Publikationsdatum: </b>{job.last_modification_timestamp}</div>
 
 
                                         </Paper>
