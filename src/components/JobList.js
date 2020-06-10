@@ -14,7 +14,7 @@ class JobList extends Component {
     apiJobs = [];
 
     fetchJobs() {
-        fetch(`http://ohws.prospective.ch/public/v1/medium/1001946/jobs?lang=de&limit=200&offset=0`)
+        fetch(`https://ohws.prospective.ch/public/v1/medium/1001946/jobs?lang=de&limit=200&offset=0`)
             .then(response => response.json())
             .then(data =>{
                     this.apiJobs = data.jobs;
