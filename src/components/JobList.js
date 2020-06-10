@@ -2,15 +2,18 @@ import React, {Component} from 'react';
 import Grid from "@material-ui/core/Grid/Grid";
 import Paper from "@material-ui/core/Paper/Paper";
 import TextField from "@material-ui/core/TextField";
+import loadingImg from '../assets/loading.gif';
+
 
 
 class JobList extends Component {
 
     state = {
         isLoading: true,
+        totalJobs: [],
         jobs: [],
         apiJobs: [],
-        error: null
+        error: null,
     }
 
     fetchJobs() {
@@ -20,6 +23,7 @@ class JobList extends Component {
                     this.apiJobs = data.jobs;
                     this.setState({
                         jobs: data.jobs,
+                        totalJobs: data,
                         isLoading: false,
                     })
                 }
@@ -42,10 +46,12 @@ class JobList extends Component {
     }
 
     render() {
-        const {isLoading, jobs, error} = this.state;
+        const {isLoading, jobs, error, totalJobs} = this.state;
         return (
             <main>
                 <h1>Jobs</h1>
+                <h5>Zur Zeit sind {totalJobs.total} Stellen ausgeschrieben</h5>
+
 
                 <Grid className={"filterContainer"} container spacing={2}>
                     <Grid item xs={12} sm={12} >
@@ -74,7 +80,8 @@ class JobList extends Component {
                         })
                     ) : (
                         <div className={"loading"}>
-                            <img className={"loadingSpinner"} src="https://i.pinimg.com/originals/3e/f0/e6/3ef0e69f3c889c1307330c36a501eb12.gif" alt=""/>
+                            <img className={"loadingSpinner"} src={loadingImg} alt=""/>
+                            <div><b>Loading...</b></div>
                         </div>
                     )}
                 </Grid>

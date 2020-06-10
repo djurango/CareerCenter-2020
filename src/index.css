@@ -18,13 +18,19 @@ main {
   padding: 20px;
 }
 
-.loadingSpinner {
-  max-width: 150px;
+
+.loading {
   position: absolute;
   top: 50%;
   left: 50%;
   margin: 0 -50% 0 0;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.loading img {
+  max-width: 300px;
+
 }
 
 h2 {
@@ -45,10 +51,7 @@ a {
   transition: .5s all;
 }
 
-.companyLogo {
-  max-width: 120px;
-  float: right;
-}
+
 
 .filterContainer {
   margin-bottom: 20px !important;
