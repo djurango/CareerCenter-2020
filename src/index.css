@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.element {
+  padding: 40px;
+  transition: .5s all;
+  min-height: 200px;
+}
+
+.element:hover {
+  background: rgba(128, 128, 128, 0.18);
+  transition: .5s all;
+}
+
+.MuiFormControl-root {
+  width: 100%;
+  margin-bottom: 20px !important;
+}
