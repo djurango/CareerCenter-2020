@@ -60,13 +60,13 @@ class JobList extends Component {
             <main>
                 <h1>Jobs</h1>
 
-                <Grid container spacing={2}>
+                <Grid className={"filterContainer"} container spacing={2}>
 
-                    <Grid item xs={6} sm={6} >
+                    <Grid item xs={12} sm={6} >
                         <TextField variant="outlined" id="standard-basic" label="Suchbegriff" type="text" value={this.state.value} onChange={this.onChangeHandler.bind(this)}/>
                     </Grid>
 
-                    <Grid item xs={6} sm={6} >
+                    <Grid item xs={12} sm={6} >
                         <Autocomplete
                             multiple
                             id="tags-outlined"

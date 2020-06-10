@@ -15,12 +15,13 @@ code {
 main {
   max-width: 900px;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .loadingSpinner {
   max-width: 150px;
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
   margin: 0 -50% 0 0;
   transform: translate(-50%, -50%)
@@ -47,6 +48,10 @@ a {
 .companyLogo {
   max-width: 120px;
   float: right;
+}
+
+.filterContainer {
+  margin-bottom: 20px !important;
 }
 
 .MuiPaper-rounded {
