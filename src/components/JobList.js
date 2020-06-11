@@ -22,7 +22,6 @@ class JobList extends Component {
                     this.apiJobs = data.jobs;
                     this.setState({
                         jobs: data.jobs,
-                        totalJobs: data,
                         isLoading: false,
                     })
                 }
@@ -35,19 +34,20 @@ class JobList extends Component {
             .then(response => response.json())
             .then(data => {
                     this.setState({
-                        filters: data.attributes,
+                        BerufsfeldFilter: data.attributes[0].values,
+                        LevelFilter: data.attributes[1],
+                        ArbeitsortFilter: data.attributes[2],
                         isLoading: false,
                     })
                 }
             )
             .catch(error => this.setState({error, isLoading: false}));
-    }
+    };
 
     componentDidMount() {
         this.fetchJobs();
         this.fetchFilters();
-
-    }
+    };
 
     onChangeHandler(e) {
         let newArray = this.apiJobs.filter((d) => {
@@ -57,53 +57,25 @@ class JobList extends Component {
         this.setState({
             jobs: newArray
         })
-    }
+    };
 
     render() {
-        const {isLoading, jobs, error, totalJobs, filters} = this.state;
+        const {isLoading, jobs, error} = this.state;
+
         return (
 
-            <main>
-
-
-
-
-                <h1>Jobs</h1>
-                <h5>Zur Zeit sind {totalJobs.total} Stellen ausgeschrieben</h5>
-
+            <div>
 
                 <header>
-
                     <div>
-                        {!isLoading ? (
-                            filters.map(filter => {
-                                return (
-                                    <div key={filter.id}>
-                                        <span>{filter.id} </span>
-                                        <span>{filter.name}</span>
-                                    </div>
-                                );
-                            })
-                        ) : (
-                            <div className={"loading"}>
-                                <img className={"loadingSpinner"} src={loadingImg} alt=""/>
-                                <div><b>Loading...</b></div>
-                            </div>
-                        )}
 
                     </div>
-
                 </header>
-
-
-
-
-
 
                 <Grid className={"filterContainer"} container spacing={2}>
                     <Grid item xs={12} sm={12}>
                         <TextField variant="outlined" id="standard-basic" label="Suchbegriff" type="text"
-                                   value={this.state.value} onChange={this.onChangeHandler.bind(this)}/>
+                                   value={this.state.value} onChange={this.onChangeHandler.bind(this)} />
                     </Grid>
                     {error ? <p>Keine Jobs, sorry</p> : null}
                 </Grid>
@@ -133,9 +105,9 @@ class JobList extends Component {
                         </div>
                     )}
                 </Grid>
-            </main>
+            </div>
         );
-    }
+    };
 }
 
 export default JobList;

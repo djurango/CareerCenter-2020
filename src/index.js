@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import JobList from "./components/JobList";
+import TotalJobs from "./components/TotalJobs";
 
 ReactDOM.render(
   <React.StrictMode>
-      <JobList />
+      <main>
+          <TotalJobs/>
+          <JobList />
+      </main>
   </React.StrictMode>,
   document.getElementById('root')
 );
