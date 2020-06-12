@@ -8,8 +8,6 @@ import TotalJobs from "./components/TotalJobs";
 ReactDOM.render(
   <React.StrictMode>
       <main>
-
-
           <TotalJobs/>
           <JobList />
       </main>
