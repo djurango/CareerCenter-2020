@@ -1,14 +1,9 @@
 {
   "name": "cc2020",
   "version": "0.1.0",
+  "author": "Milos Djuric",
   "private": true,
   "dependencies": {
-    "@kenshooui/react-multi-select": "^1.1.6",
-    "@material-ui/lab": "^4.0.0-alpha.55",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "material-table": "^1.60.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",

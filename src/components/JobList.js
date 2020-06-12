@@ -15,6 +15,7 @@ class JobList extends Component {
         error: null,
     }
 
+
     fetchJobs() {
         fetch('https://ohws.prospective.ch/public/v1/medium/1000470/jobs?lang=de&limit=200&offset=0')
             .then(response => response.json())
