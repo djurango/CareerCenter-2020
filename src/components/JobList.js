@@ -3,16 +3,41 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Paper from "@material-ui/core/Paper/Paper";
 import TextField from "@material-ui/core/TextField";
 import loadingImg from '../assets/images/loading.gif';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
+const attributeType = {
+    workArea: '10',
+    workLocation: '25',
+    level: '30'
+}
+
+const Job = job => ({
+    get workAreas() { return job.attributes[attributeType.workArea] || [] },
+    get workLocations() { return job.attributes[attributeType.workLocation] || [] }
+
+})
 
 class JobList extends Component {
 
     state = {
         isLoading: true,
-        totalJobs: [],
+        totalJobs: [], // TODO Check type
         jobs: [],
+        filteredJobs: [],
         apiJobs: [],
         error: null,
+        workAreaFilter: {},
+        levelFilter: {},
+        locationFilter: {},
+        filterValues: {
+            searchTerm: '',
+            workAreaFilter: '',
+            levelFilter: '',
+            locationFilter: '',
+        }
     }
 
     fetchJobs() {
@@ -22,6 +47,7 @@ class JobList extends Component {
                     this.apiJobs = data.jobs;
                     this.setState({
                         jobs: data.jobs,
+                        filteredJobs: data.jobs,
                         isLoading: false,
                     })
                 }
@@ -34,9 +60,9 @@ class JobList extends Component {
             .then(response => response.json())
             .then(data => {
                     this.setState({
-                        BerufsfeldFilter: data.attributes[0].values,
-                        LevelFilter: data.attributes[1].values,
-                        ArbeitsortFilter: data.attributes[2].values,
+                        workAreaFilter: data.attributes.find(attribute => attribute.id === attributeType.workArea),
+                        levelFilter: data.attributes.find(attribute => attribute.id === attributeType.level),
+                        locationFilter: data.attributes.find(attribute => attribute.id === attributeType.workLocation),
                         isLoading: false,
                     })
                 }
@@ -49,18 +75,38 @@ class JobList extends Component {
         this.fetchFilters();
     };
 
-    onChangeHandler(e) {
-        let newArray = this.apiJobs.filter((d) => {
-            let searchValue = d.title.toLowerCase();
-            return searchValue.indexOf(e.target.value) !== -1;
+    applyFilters(filters) {
+        return this.state.jobs.filter(job => {
+            let result = true;
+            if (filters.searchTerm) result = result && job.title.toLowerCase().indexOf(filters.searchTerm) > -1;
+            if (filters.workAreaFilter) result = result && Job(job).workAreas.includes(filters.workAreaFilter);
+            if (filters.locationFilter) result = result && Job(job).workLocations.includes(filters.locationFilter);
+            return result;
         });
-        this.setState({
-            jobs: newArray
-        })
+    }
+
+    onSearchTermChange(e) {
+        const filters = {...this.state.filterValues};
+        filters.searchTerm = e.target.value.toLowerCase();
+        const filteredJobs = this.applyFilters(filters);
+        this.setState({filteredJobs, filterValues: filters});
     };
 
+    onWorkAreaFilterChange(e) {
+        const filters = {...this.state.filterValues};
+        filters.workAreaFilter = e.target.value;
+        const filteredJobs = this.applyFilters(filters);
+        this.setState({filteredJobs, filterValues: filters});
+    }
+    onLocationFilterChange(e) {
+        const filters = {...this.state.filterValues};
+        filters.locationFilter = e.target.value;
+        const filteredJobs = this.applyFilters(filters);
+        this.setState({filteredJobs, filterValues: filters});
+    }
+
     render() {
-        const {isLoading, jobs, error} = this.state;
+        const {isLoading, filteredJobs, error} = this.state;
         return (
             <div>
                 <Grid className={"filterContainer"} container spacing={2}>
@@ -70,14 +116,48 @@ class JobList extends Component {
                                    label="Suchbegriff"
                                    type="text"
                                    value={this.state.value}
-                                   onChange={this.onChangeHandler.bind(this)}/>
+                                   onChange={this.onSearchTermChange.bind(this)}/>
+
                     </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl variant="outlined">
+                            <InputLabel id="work-area-select-label">{this.state.workAreaFilter.name}</InputLabel>
+                            <Select
+                                labelId="work-area-select-label"
+                                id="work-area-select"
+                                value={this.state.filterValues.workAreaFilter}
+                                onChange={this.onWorkAreaFilterChange.bind(this)}
+                                label={this.state.workAreaFilter.name}
+                            >{
+                                // TODO Use key instead of value
+                                Object.entries(this.state.workAreaFilter.values || {}).map(([key, value]) => (<MenuItem key={value} value={value}>{value}</MenuItem>))
+                            }</Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <FormControl variant="outlined">
+                            <InputLabel id="work-area-select-label">{this.state.locationFilter.name}</InputLabel>
+                            <Select
+                                labelId="work-area-select-label"
+                                id="work-area-select"
+                                value={this.state.filterValues.locationFilter}
+                                onChange={this.onLocationFilterChange.bind(this)}
+                                label={this.state.locationFilter.name}
+
+                            >{
+                                // TODO Use key instead of value
+                                Object.entries(this.state.locationFilter.values || {}).map(([key, value]) => (<MenuItem key={value} value={value}>{value}</MenuItem>))
+                            }</Select>
+                        </FormControl>
+                    </Grid>
+
                     {error ? <p>Keine Jobs, sorry</p> : null}
                 </Grid>
 
                 <Grid container spacing={2}>
                     {!isLoading ? (
-                        jobs.map(job => {
+                        filteredJobs.map(job => {
                             return (
                                 <Grid item xs={12} sm={12} key={job.id}>
                                     <a target="_blank" rel="noopener noreferrer" href={job.links.directlink}>

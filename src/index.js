@@ -6,13 +6,11 @@ import JobList from "./components/JobList";
 import TotalJobs from "./components/TotalJobs";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <main>
-          <TotalJobs/>
-          <JobList />
-      </main>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <main>
+        <TotalJobs/>
+        <JobList />
+    </main>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
