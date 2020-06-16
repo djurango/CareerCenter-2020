@@ -62,10 +62,6 @@ a {
   margin-bottom: 20px !important;
 }
 
-.searchFilter {
-  position: fixed;
-  display: contents;
-}
 
 .MuiPaper-rounded {
   border: 1px solid gray;
