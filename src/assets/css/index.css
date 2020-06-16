@@ -53,6 +53,7 @@ a {
 .element:hover {
   background: rgba(128, 128, 128, 0.18);
   transition: .5s all;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.38);
 }
 
 

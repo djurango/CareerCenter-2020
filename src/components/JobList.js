@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Grid from "@material-ui/core/Grid/Grid";
 import Paper from "@material-ui/core/Paper/Paper";
 import TextField from "@material-ui/core/TextField";
-import loadingImg from '../assets/loading.gif';
+import loadingImg from '../assets/images/loading.gif';
 
 
 class JobList extends Component {
@@ -15,9 +15,8 @@ class JobList extends Component {
         error: null,
     }
 
-
     fetchJobs() {
-        fetch('https://ohws.prospective.ch/public/v1/medium/1000470/jobs?lang=de&limit=200&offset=0')
+        fetch('https://ohws.prospective.ch/public/v1/medium/1000470/jobs?lang=de&limit=200&offset=0&query=')
             .then(response => response.json())
             .then(data => {
                     this.apiJobs = data.jobs;
@@ -36,8 +35,8 @@ class JobList extends Component {
             .then(data => {
                     this.setState({
                         BerufsfeldFilter: data.attributes[0].values,
-                        LevelFilter: data.attributes[1],
-                        ArbeitsortFilter: data.attributes[2],
+                        LevelFilter: data.attributes[1].values,
+                        ArbeitsortFilter: data.attributes[2].values,
                         isLoading: false,
                     })
                 }
@@ -62,21 +61,16 @@ class JobList extends Component {
 
     render() {
         const {isLoading, jobs, error} = this.state;
-
         return (
-
             <div>
-
-                <header>
-                    <div>
-
-                    </div>
-                </header>
-
                 <Grid className={"filterContainer"} container spacing={2}>
                     <Grid item xs={12} sm={12}>
-                        <TextField variant="outlined" id="standard-basic" label="Suchbegriff" type="text"
-                                   value={this.state.value} onChange={this.onChangeHandler.bind(this)} />
+                        <TextField variant="outlined"
+                                   id="standard-basic"
+                                   label="Suchbegriff"
+                                   type="text"
+                                   value={this.state.value}
+                                   onChange={this.onChangeHandler.bind(this)}/>
                     </Grid>
                     {error ? <p>Keine Jobs, sorry</p> : null}
                 </Grid>
