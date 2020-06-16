@@ -112,7 +112,7 @@ class JobList extends Component {
         return (
             <div>
                 <Grid className={"filterContainer"} container spacing={2}>
-                    <Grid item xs={12} sm={12}>
+                    <Grid className={"searchFilter"} item xs={12} sm={12}>
                         <TextField variant="outlined"
                                    id="standard-basic"
                                    label="Suchbegriff"
