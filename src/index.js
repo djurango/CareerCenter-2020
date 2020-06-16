@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import './assets/css/index.css';
 import * as serviceWorker from './serviceWorker';
 import JobList from "./components/JobList";
-import TotalJobs from "./components/TotalJobs";
 
 ReactDOM.render(
     <main>
-        <TotalJobs/>
         <JobList />
     </main>,
     document.getElementById('root')

@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {number} from "prop-types";
 
 const attributeType = {
     workArea: '10',
@@ -24,7 +25,7 @@ class JobList extends Component {
 
     state = {
         isLoading: true,
-        totalJobs: [], // TODO Check type
+        totalJobs: number,
         jobs: [],
         filteredJobs: [],
         apiJobs: [],
@@ -106,7 +107,8 @@ class JobList extends Component {
     }
 
     render() {
-        const {isLoading, filteredJobs, error} = this.state;
+        const {isLoading, filteredJobs} = this.state;
+
         return (
             <div>
                 <Grid className={"filterContainer"} container spacing={2}>
@@ -152,8 +154,10 @@ class JobList extends Component {
                         </FormControl>
                     </Grid>
 
-                    {error ? <p>Keine Jobs, sorry</p> : null}
                 </Grid>
+
+                <h5>{filteredJobs.length} Stellen entsprechen Ihren Filterkriterien</h5>
+
 
                 <Grid container spacing={2}>
                     {!isLoading ? (
