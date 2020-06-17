@@ -53,7 +53,7 @@ a {
 .element:hover {
   background: rgba(128, 128, 128, 0.18);
   transition: .5s all;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -64,15 +64,37 @@ a {
 
 
 .MuiPaper-rounded {
-  border: 1px solid gray;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .MuiPaper-elevation1 {
   transition: .5s all !important;
+  box-shadow: 0 0 0 0 !important;
 }
 
 .MuiFormControl-root {
   width: 100%;
 }
 
+.MuiInputAdornment-root {
+  cursor: pointer;
+}
+
+.MuiPaper-rounded, .MuiOutlinedInput-root {
+  border-radius: 0 !important;
+}
+
+.MuiSelect-select:focus {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.01) !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: black !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: black !important;
+  border-width: 1px !important;
+}
 

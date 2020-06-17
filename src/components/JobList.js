@@ -8,6 +8,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {number} from "prop-types";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import CloseSharpIcon from '@material-ui/icons/CloseSharp';
 
 const attributeType = {
     workArea: '10',
@@ -16,8 +18,12 @@ const attributeType = {
 }
 
 const Job = job => ({
-    get workAreas() { return job.attributes[attributeType.workArea] || [] },
-    get workLocations() { return job.attributes[attributeType.workLocation] || [] }
+    get workAreas() {
+        return job.attributes[attributeType.workArea] || []
+    },
+    get workLocations() {
+        return job.attributes[attributeType.workLocation] || []
+    }
 
 })
 
@@ -99,6 +105,7 @@ class JobList extends Component {
         const filteredJobs = this.applyFilters(filters);
         this.setState({filteredJobs, filterValues: filters});
     }
+
     onLocationFilterChange(e) {
         const filters = {...this.state.filterValues};
         filters.locationFilter = e.target.value;
@@ -106,8 +113,16 @@ class JobList extends Component {
         this.setState({filteredJobs, filterValues: filters});
     }
 
+    clear = () => {
+        this.setState({
+            value: '',
+        })
+    }
+
+
     render() {
         const {isLoading, filteredJobs} = this.state;
+
 
         return (
             <div>
@@ -118,9 +133,18 @@ class JobList extends Component {
                                    label="Suchbegriff"
                                    type="text"
                                    value={this.state.value}
+                                   InputProps={{
+                                       endAdornment: (
+                                           //TODO Add function to reset input field
+                                           <InputAdornment position="end">
+                                               <CloseSharpIcon onClick={() => {}}/>
+                                           </InputAdornment>
+                                       )
+                                   }}
                                    onChange={this.onSearchTermChange.bind(this)}/>
 
                     </Grid>
+
                     <Grid item xs={12} sm={6}>
                         <FormControl variant="outlined">
                             <InputLabel id="work-area-select-label">{this.state.workAreaFilter.name}</InputLabel>
@@ -130,27 +154,33 @@ class JobList extends Component {
                                 value={this.state.filterValues.workAreaFilter}
                                 onChange={this.onWorkAreaFilterChange.bind(this)}
                                 label={this.state.workAreaFilter.name}
-                            >{
-                                // TODO Use key instead of value
-                                Object.entries(this.state.workAreaFilter.values || {}).map(([key, value]) => (<MenuItem key={value} value={value}>{value}</MenuItem>))
-                            }</Select>
+                            >
+                                <MenuItem value="">Alle</MenuItem>
+                                {
+                                    // TODO Use key instead of value
+                                    Object.entries(this.state.workAreaFilter.values || {}).map(([key, value]) => (
+                                        <MenuItem key={value} value={value}>{value}</MenuItem>))
+                                }</Select>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
                         <FormControl variant="outlined">
-                            <InputLabel id="work-area-select-label">{this.state.locationFilter.name}</InputLabel>
+                            <InputLabel id="location-select-label">{this.state.locationFilter.name}</InputLabel>
                             <Select
-                                labelId="work-area-select-label"
-                                id="work-area-select"
+                                labelId="location-select-label"
+                                id="location-select"
                                 value={this.state.filterValues.locationFilter}
                                 onChange={this.onLocationFilterChange.bind(this)}
                                 label={this.state.locationFilter.name}
 
-                            >{
-                                // TODO Use key instead of value
-                                Object.entries(this.state.locationFilter.values || {}).map(([key, value]) => (<MenuItem key={value} value={value}>{value}</MenuItem>))
-                            }</Select>
+                            >
+                                <MenuItem value="">Alle</MenuItem>
+                                {
+                                    // TODO Use key instead of value
+                                    Object.entries(this.state.locationFilter.values || {}).map(([key, value]) => (
+                                        <MenuItem key={value} value={value}>{value}</MenuItem>))
+                                }</Select>
                         </FormControl>
                     </Grid>
 
