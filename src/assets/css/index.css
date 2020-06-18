@@ -70,6 +70,7 @@ a {
 .MuiPaper-elevation1 {
   transition: .5s all !important;
   box-shadow: 0 0 0 0 !important;
+  min-height: 200px;
 }
 
 .MuiFormControl-root {

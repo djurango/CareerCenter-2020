@@ -113,11 +113,6 @@ class JobList extends Component {
         this.setState({filteredJobs, filterValues: filters});
     }
 
-    clear = () => {
-        this.setState({
-            value: '',
-        })
-    }
 
 
     render() {
@@ -193,7 +188,7 @@ class JobList extends Component {
                     {!isLoading ? (
                         filteredJobs.map(job => {
                             return (
-                                <Grid item xs={12} sm={12} key={job.id}>
+                                <Grid item xs={12} sm={6} key={job.id}>
                                     <a target="_blank" rel="noopener noreferrer" href={job.links.directlink}>
                                         <Paper className={"element"}>
                                             <h2>{job.title}</h2>
